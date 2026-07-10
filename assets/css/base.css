@@ -4,8 +4,10 @@
 
 /* overflow-x: clip contains any decorative element that runs past the viewport
    edge on small screens. clip (unlike hidden) does NOT create a scroll container,
-   so the hero's position:sticky stage keeps pinning correctly. */
-html, body { margin: 0; padding: 0; background: #000000; overflow-x: clip; }
+   so the hero's position:sticky stage keeps pinning correctly. The `hidden`
+   line before it is a fallback for older engines (iOS <16 / old Android
+   System WebView) where `clip` is unsupported and would be silently dropped. */
+html, body { margin: 0; padding: 0; background: #000000; overflow-x: hidden; overflow-x: clip; }
 
 /* The original DC runtime injected a minimal reset; box-sizing keeps clamp()
    layouts identical to the preview. */

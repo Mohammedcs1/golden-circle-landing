@@ -68,6 +68,10 @@
       this.hiwMax = 0;
       this.waveTight = 0;
       this.lastSY = null;
+      // adaptive quality (phones): flips true once the frame-time average says
+      // the browser can't hold ~40fps (weak in-app WebViews); never flips back
+      this.lite = false;
+      this.frameAvg = 16.7;
 
       // React refs -> { current: element } wrappers (keeps all `.current` usage intact)
       for (const name of REF_NAMES) {
@@ -115,17 +119,42 @@
       this.raf = requestAnimationFrame(this.tick);
     }
 
+    // hero geometry. Desktop: vh units (stable there). Phones: frozen PIXELS —
+    // in-app browsers (Telegram/Instagram) collapse their toolbars while the
+    // user scrolls, which re-resolves vh mid-scroll, changes the pin length
+    // under the finger and jumps the page. Pixels can't be resized by the
+    // browser chrome. 300vh desktop / 2.4x viewport on phones keeps the
+    // pinned intro to ~1.5-2 flicks.
+    sizeHero() {
+      const wrap = this.wrapRef.current, stage = this.stageRef.current;
+      if (!wrap) return;
+      if (this.isMobile) {
+        const h = window.innerHeight;
+        this.heroBaseH = h;
+        if (stage) stage.style.height = h + 'px';
+        wrap.style.height = Math.round(h * 2.4) + 'px';
+      } else {
+        wrap.style.height = '300vh';
+      }
+    }
+
     setupScroll() {
       this.auto = !!(this.props.autoPlay ?? false);
       if (this.st) { this.st.kill(); this.st = null; }
       const wrap = this.wrapRef.current;
       if (!wrap) return;
       if (this.auto || this.reduced) { wrap.style.height = '100vh'; return; }
-      // 300vh (was 460vh): the pinned intro resolves in ~2 screen-scrolls instead
-      // of ~3.6 — momentum flicks no longer teleport across multiple scenes.
-      // Phones get a shorter pin still: a flick covers ~a whole viewport, so
-      // 240vh keeps the intro to ~1.5 flicks and the page never feels stuck.
-      wrap.style.height = this.isMobile ? '240vh' : '300vh';
+      this.sizeHero();
+      // only a genuine orientation change (>150px height delta) re-derives the
+      // frozen geometry — toolbar show/hide (~60-120px) must never do it
+      this._heroResize = () => {
+        if (!this.isMobile) return;
+        if (Math.abs(window.innerHeight - (this.heroBaseH || 0)) > 150) {
+          this.sizeHero();
+          if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+        }
+      };
+      window.addEventListener('resize', this._heroResize);
       if (window.gsap && window.ScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
         // mobile browsers fire a resize every time the URL bar shows/hides, which
@@ -443,8 +472,21 @@
     tick = (now) => {
       this.raf = requestAnimationFrame(this.tick);
       const t = (now - this.t0) / 1000;
-      const dt = Math.min(0.05, (now - this.lastT) / 1000);
+      const frameMs = now - this.lastT;
+      const dt = Math.min(0.05, frameMs / 1000);
       this.lastT = now;
+
+      // adaptive quality governor: Telegram/Instagram WebViews run pages with
+      // less GPU/CPU priority (plus injected scripts) — if the rolling frame
+      // average stays above 25ms (<40fps) after warm-up, permanently ease the
+      // hero's SVG load (fewer samples, no glow layer). One-way: no oscillation.
+      if (this.isMobile && !this.lite && !this.reduced) {
+        this.frameAvg += (Math.min(frameMs, 100) - this.frameAvg) * 0.05;
+        if (t > 3 && this.frameAvg > 25) {
+          this.lite = true;
+          if (this.linesGlowRef.current) this.linesGlowRef.current.setAttribute('opacity', '0');
+        }
+      }
       const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
       const smooth = (u) => u * u * (3 - 2 * u);
 
@@ -484,7 +526,7 @@
       const inten = this.props.waveIntensity ?? 1;
       const pc = clamp(p / 0.30, 0, 1);
       const pm = clamp((p - 0.38) / 0.46, 0, 1);
-      const M = this.isMobile ? 36 : 56;
+      const M = this.lite ? 22 : (this.isMobile ? 36 : 56);
       if (heroActive) for (const rb of (this.ribbons || [])) {
         let r, w;
         if (pm <= 0) {
@@ -523,11 +565,13 @@
         const sw = rb.w0 + (rb.widthFinal - rb.w0) * w;
         rb.coreEl.setAttribute('d', d);
         rb.coreEl.setAttribute('stroke-width', sw.toFixed(2));
-        rb.glowEl.setAttribute('d', d);
-        rb.glowEl.setAttribute('stroke-width', (sw * 3.0).toFixed(2));
+        if (!this.lite) {
+          rb.glowEl.setAttribute('d', d);
+          rb.glowEl.setAttribute('stroke-width', (sw * 3.0).toFixed(2));
+        }
       }
       if (heroActive && this.linesCoreRef.current) this.linesCoreRef.current.setAttribute('opacity', introLogo.toFixed(3));
-      if (heroActive && this.linesGlowRef.current) this.linesGlowRef.current.setAttribute('opacity', introLogo.toFixed(3));
+      if (heroActive && !this.lite && this.linesGlowRef.current) this.linesGlowRef.current.setAttribute('opacity', introLogo.toFixed(3));
 
       // --- scene 3: pulse (quiet energy release) ---
       const tri = (v, a, b, c) => v <= a || v >= c ? 0 : (v < b ? (v - a) / (b - a) : 1 - (v - b) / (c - b));

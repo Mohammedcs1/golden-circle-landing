@@ -12,6 +12,17 @@
  * is untouched. */
 
 /* =====================================================================
+   Scroll behaviour — phones only
+   ===================================================================== */
+@media (max-width: 768px) {
+  /* during the pinned hero the page sits near scrollTop 0 for a while; a
+     fast upward swipe there triggers accidental pull-to-refresh in Chrome /
+     Android WebViews (Telegram, Instagram). Contain stops that without
+     affecting normal scrolling. */
+  html, body { overscroll-behavior-y: contain; }
+}
+
+/* =====================================================================
    Navigation — the same desktop bar, compressed. No hamburger.
    ===================================================================== */
 @media (max-width: 768px) {
