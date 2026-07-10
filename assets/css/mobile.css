@@ -109,6 +109,12 @@
   /* trim the extra top padding the desktop badge overlap needs */
   [data-wf-vis] > div > div,
   [data-bw-vis] > div > div { padding: 22px 18px !important; }
+
+  /* the glow strand's slow opacity animation forces repeated repaints of a
+     very tall SVG on phones — freeze it at its mid value (scroll smoothness
+     beats a barely-visible shimmer) */
+  [data-ref="wfLineGlowRef"],
+  [data-ref="bwLineGlowRef"] { animation: none !important; opacity: 0.14 !important; }
 }
 
 /* =====================================================================

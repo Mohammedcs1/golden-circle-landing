@@ -81,6 +81,21 @@
       // fewer ribbon samples on phones — the per-frame path rebuild is the main
       // cost of the hero animation, and the difference is imperceptible at small size
       this.isMobile = !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+      // phones: watch the two per-frame-animated sections so tick() can pause
+      // their SVG work once they are scrolled offscreen — otherwise that work
+      // competes with touch scrolling for the main thread on the whole page
+      this.stageVisible = true;
+      this.storyVisible = true;
+      if (this.isMobile && !this.reduced && 'IntersectionObserver' in window) {
+        const watch = (el, key) => {
+          if (!el) return null;
+          const io = new IntersectionObserver((ents) => { ents.forEach((e) => { this[key] = e.isIntersecting; }); });
+          io.observe(el);
+          return io;
+        };
+        this.stageVisIO = watch(this.stageRef.current, 'stageVisible');
+        this.storyVisIO = watch(this.storyRef.current, 'storyVisible');
+      }
       this.p = this.reduced ? 1 : 0;
       this.pTarget = this.p;
       this.t0 = performance.now();
@@ -107,8 +122,10 @@
       if (!wrap) return;
       if (this.auto || this.reduced) { wrap.style.height = '100vh'; return; }
       // 300vh (was 460vh): the pinned intro resolves in ~2 screen-scrolls instead
-      // of ~3.6 — momentum flicks no longer teleport across multiple scenes
-      wrap.style.height = '300vh';
+      // of ~3.6 — momentum flicks no longer teleport across multiple scenes.
+      // Phones get a shorter pin still: a flick covers ~a whole viewport, so
+      // 240vh keeps the intro to ~1.5 flicks and the page never feels stuck.
+      wrap.style.height = this.isMobile ? '240vh' : '300vh';
       if (window.gsap && window.ScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
         // mobile browsers fire a resize every time the URL bar shows/hides, which
@@ -170,7 +187,9 @@
       this.buildWfLine();
       requestAnimationFrame(() => this.buildWfLine());
       setTimeout(() => this.buildWfLine(), 450);
-      this._wfResize = () => this.buildWfLine();
+      // debounced: mobile URL-bar show/hide fires resize mid-scroll, and the
+      // rebuild forces layout reads — batching it avoids scroll hitches
+      this._wfResize = () => { clearTimeout(this._wfRT); this._wfRT = setTimeout(() => this.buildWfLine(), 150); };
       window.addEventListener('resize', this._wfResize);
 
       const revealWf = () => {
@@ -271,7 +290,8 @@
       this.buildBwLine();
       requestAnimationFrame(() => this.buildBwLine());
       setTimeout(() => this.buildBwLine(), 450);
-      this._bwResize = () => this.buildBwLine();
+      // debounced for the same reason as _wfResize
+      this._bwResize = () => { clearTimeout(this._bwRT); this._bwRT = setTimeout(() => this.buildBwLine(), 150); };
       window.addEventListener('resize', this._bwResize);
 
       const revealBw = () => {
@@ -449,8 +469,13 @@
       const introLogo = this.reduced ? 1 : smooth(clamp((t - 0.5) / 1.2, 0, 1));
       const introHint = this.reduced ? 0 : clamp((t - 2.2) / 0.8, 0, 1);
 
+      // on phones, per-frame SVG work only runs while its section is on screen
+      // (both flags are permanently true on desktop — behaviour unchanged there)
+      const heroActive = !this.isMobile || this.reduced || this.stageVisible;
+      const storyActive = !this.isMobile || this.reduced || this.storyVisible;
+
       // --- metallic shimmer: gradient slowly travels ---
-      if (this.gradRef.current) {
+      if (heroActive && this.gradRef.current) {
         const shift = Math.sin(t * 0.45) * 300;
         this.gradRef.current.setAttribute('gradientTransform', 'translate(' + shift.toFixed(1) + ' 0)');
       }
@@ -460,7 +485,7 @@
       const pc = clamp(p / 0.30, 0, 1);
       const pm = clamp((p - 0.38) / 0.46, 0, 1);
       const M = this.isMobile ? 36 : 56;
-      for (const rb of (this.ribbons || [])) {
+      if (heroActive) for (const rb of (this.ribbons || [])) {
         let r, w;
         if (pm <= 0) {
           const cu = clamp((pc - rb.cStag) / 0.86, 0, 1);
@@ -501,15 +526,15 @@
         rb.glowEl.setAttribute('d', d);
         rb.glowEl.setAttribute('stroke-width', (sw * 3.0).toFixed(2));
       }
-      if (this.linesCoreRef.current) this.linesCoreRef.current.setAttribute('opacity', introLogo.toFixed(3));
-      if (this.linesGlowRef.current) this.linesGlowRef.current.setAttribute('opacity', introLogo.toFixed(3));
+      if (heroActive && this.linesCoreRef.current) this.linesCoreRef.current.setAttribute('opacity', introLogo.toFixed(3));
+      if (heroActive && this.linesGlowRef.current) this.linesGlowRef.current.setAttribute('opacity', introLogo.toFixed(3));
 
       // --- scene 3: pulse (quiet energy release) ---
       const tri = (v, a, b, c) => v <= a || v >= c ? 0 : (v < b ? (v - a) / (b - a) : 1 - (v - b) / (c - b));
-      if (this.pulseGlowRef.current) {
+      if (heroActive && this.pulseGlowRef.current) {
         this.pulseGlowRef.current.setAttribute('opacity', (tri(p, 0.29, 0.35, 0.48) * 0.85).toFixed(3));
       }
-      if (this.rippleRef.current) {
+      if (heroActive && this.rippleRef.current) {
         const q = clamp((p - 0.34) / 0.11, 0, 1);
         const rr = 26 + (1 - Math.pow(1 - q, 3)) * 430;
         this.rippleRef.current.setAttribute('r', rr.toFixed(1));
@@ -518,22 +543,26 @@
       }
 
       // --- overlays ---
-      if (this.logoTextRef.current) {
+      if (heroActive && this.logoTextRef.current) {
         this.logoTextRef.current.setAttribute('opacity', (introLogo * (1 - clamp(p / 0.07, 0, 1))).toFixed(3));
       }
-      if (this.hintRef.current) {
+      if (heroActive && this.hintRef.current) {
         this.hintRef.current.style.opacity = (introHint * (1 - clamp(p / 0.04, 0, 1))).toFixed(3);
       }
       if (this.navRef.current) {
-        this.navRef.current.style.opacity = introLogo.toFixed(3);
+        // the nav must never be left at opacity 0 when hero work is paused
+        // (e.g. a mid-page reload with scroll restoration)
+        const nav = this.navRef.current;
+        if (heroActive) nav.style.opacity = introLogo.toFixed(3);
+        else if (nav.style.opacity !== '1') nav.style.opacity = '1';
       }
-      if (this.heroTopRef.current) {
+      if (heroActive && this.heroTopRef.current) {
         const ho = introLogo * (1 - clamp(p / 0.06, 0, 1));
         const ht = this.heroTopRef.current;
         ht.style.opacity = ho.toFixed(3);
         ht.style.pointerEvents = ho > 0.5 ? 'auto' : 'none';
       }
-      if (this.heroRef.current) {
+      if (heroActive && this.heroRef.current) {
         const hp = smooth(clamp((p - 0.84) / 0.13, 0, 1));
         const h = this.heroRef.current;
         h.style.opacity = hp.toFixed(3);
@@ -544,7 +573,7 @@
       // --- section: connecting ribbon (breathing + illuminating) ---
       this.ribLit += (this.ribLitTarget - this.ribLit) * Math.min(1, dt * 1.3);
       const lit = this.ribLit;
-      if (this.ribCoreRef.current && lit > 0.001) {
+      if (storyActive && this.ribCoreRef.current && lit > 0.001) {
         const W = 1600, MY = 120, N = 64;
         const draw = (amp, dip, phase, spd) => {
           let d = '';
@@ -759,12 +788,20 @@
     const hide = () => { if (!hidden) { nav.style.transform = HIDDEN; hidden = true; } };
     // subtle backdrop so the nav stays legible when floating over content —
     // absent at the very top so the hero keeps its original clean look.
+    // backdrop-filter re-blurs the page behind the fixed bar on every scrolled
+    // frame — cheap on desktop GPUs, a measurable per-frame cost on phones.
+    // Phones get a slightly deeper plain gradient instead (no blur).
+    const lite = !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
     const scrimOn = () => {
       if (scrimmed) return; scrimmed = true;
-      // very light frosted glass: mostly transparent, content stays visible behind
-      nav.style.background = 'linear-gradient(to bottom, rgba(8,6,5,0.28), rgba(8,6,5,0.06))';
-      nav.style.backdropFilter = 'blur(6px) saturate(110%)';
-      nav.style.webkitBackdropFilter = 'blur(6px) saturate(110%)';
+      if (lite) {
+        nav.style.background = 'linear-gradient(to bottom, rgba(8,6,5,0.72), rgba(8,6,5,0.32))';
+      } else {
+        // very light frosted glass: mostly transparent, content stays visible behind
+        nav.style.background = 'linear-gradient(to bottom, rgba(8,6,5,0.28), rgba(8,6,5,0.06))';
+        nav.style.backdropFilter = 'blur(6px) saturate(110%)';
+        nav.style.webkitBackdropFilter = 'blur(6px) saturate(110%)';
+      }
       nav.style.boxShadow = '0 1px 0 rgba(217,176,106,0.08)';
     };
     const scrimOff = () => {
