@@ -1,0 +1,121 @@
+/* Golden Circle — mobile overrides, v2 ("desktop-faithful").
+ *
+ * Philosophy: scale, don't restructure. The desktop composition — visible nav
+ * links, side-by-side hero CTAs, the mirrored Our Story columns, the five-card
+ * journeys strung on one golden line — is preserved on phones; only sizes and
+ * spacing are tuned. The five-card journey rows keep their full desktop layout
+ * inside a horizontal swipe container instead of stacking.
+ *
+ * The page is styled with inline style="" attributes, and an inline style beats
+ * any stylesheet selector — so every rule that overrides an inline value MUST
+ * use !important to win. All rules live inside media queries; desktop rendering
+ * is untouched. */
+
+/* =====================================================================
+   Navigation — the same desktop bar, compressed. No hamburger.
+   ===================================================================== */
+@media (max-width: 768px) {
+  [data-ref="navRef"]  { padding: 12px 18px !important; }
+  [data-nav-center]    { gap: 18px !important; }
+  [data-nav-center] a  { font-size: 11px !important; letter-spacing: 1.2px !important; }
+  [data-nav-actions]   { gap: 12px !important; }
+  [data-nav-actions] a { font-size: 11px !important; letter-spacing: 1px !important; }
+}
+
+@media (max-width: 600px) {
+  /* icon-only logo frees the middle for the centred links */
+  [data-ref="navRef"] > a > span { display: none !important; }
+  [data-nav-center] { gap: 14px !important; }
+}
+
+@media (max-width: 480px) {
+  /* "Log in" opens the same page as "Sign in" — drop the duplicate text link,
+     keep the gold pill (the desktop signature) */
+  [data-nav-actions] a:first-child { display: none !important; }
+  [data-nav-actions] a:last-child  { padding: 7px 14px !important; }
+}
+
+/* =====================================================================
+   Hero — identical composition, tuned sizes. CTAs stay side by side.
+   ===================================================================== */
+@media (max-width: 600px) {
+  /* the intro SVG wordmark lives in a 1600x900 viewBox cropped with
+     preserveAspectRatio "slice"; at full size it overflows the visible crop on
+     a portrait phone. Shrinking it keeps "GOLDEN CIRCLE" fully on-screen. */
+  [data-ref="logoTextRef"] text { font-size: 24px !important; letter-spacing: 2px !important; }
+
+  /* both CTA pills stay on one row like desktop — just smaller */
+  [data-hero-cta]   { gap: 10px !important; }
+  [data-hero-cta] a { font-size: 12px !important; padding: 10px 16px !important; gap: 8px !important; letter-spacing: 0.6px !important; }
+
+  /* the gold tagline keeps its single desktop line by trading letter-spacing
+     for width instead of wrapping (heroTopRef child 2 = the tagline) */
+  [data-ref="heroTopRef"] > div:nth-child(2) { font-size: 10px !important; letter-spacing: 2.5px !important; }
+
+  /* final scene: "Golden Circle" stays ONE dramatic line, sized by viewport
+     (the desktop feel), instead of a small fixed size */
+  [data-hero-final] > div:first-child  { font-size: clamp(34px, 14vw, 84px) !important; letter-spacing: 0.5px !important; }
+  [data-hero-final] > div:nth-child(2) { font-size: 9px !important; letter-spacing: 2.5px !important; }
+  /* the description needs a definite width to wrap inside the centered flex
+     column rather than overflow it */
+  [data-hero-final] > div:nth-child(3) { width: 84vw !important; max-width: 84vw !important; }
+}
+
+/* =====================================================================
+   Our Story — two mirrored columns, kept as long as physically possible
+   ===================================================================== */
+@media (max-width: 560px) {
+  /* below ~560px the columns stack, but For Creators keeps its inline
+     text-align:right — the desktop mirroring survives the stack */
+  [data-two-col] { grid-template-columns: 1fr !important; gap: 40px !important; }
+}
+
+/* =====================================================================
+   Creator / Brand journeys — the full desktop row (wave offsets + golden
+   connector line intact) inside a horizontal swipe container
+   ===================================================================== */
+@media (max-width: 768px) {
+  [data-journey-scroll] {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;              /* Firefox */
+  }
+  [data-journey-scroll]::-webkit-scrollbar { display: none; }  /* WebKit */
+
+  /* freeze the desktop geometry: the row keeps a full-size width so the five
+     cards, their wave offsets and the JS-drawn connector line all render
+     exactly as on desktop; vertical padding gives the raised/lowered cards
+     room inside the scroll clip (a scroll container clips transforms) */
+  [data-ref="wfRef"],
+  [data-ref="bwRef"] {
+    min-width: 880px;
+    padding: 40px 24px 52px !important;
+  }
+  [data-wf-card],
+  [data-bw-card] { scroll-snap-align: center; }
+
+  /* the ambience glow extends past the row edges on desktop; inside a scroll
+     container that would add empty swipe distance — pin it to the row */
+  [data-journey-glow] { inset: -10% 0 !important; }
+}
+
+/* =====================================================================
+   Small-phone refinements
+   ===================================================================== */
+@media (max-width: 480px) {
+  /* the big Cormorant section titles bottom out at 40px, which can force an
+     ugly third line ("One Successful Campaign."); a gentle vw scale keeps the
+     desktop two-line shape */
+  [data-ref="sHeadRef"],
+  [data-ref="hHeadRef"],
+  [data-ref="bHeadRef"] { font-size: clamp(30px, 9vw, 40px) !important; }
+
+  /* uppercase benefit labels: slightly tighter tracking so the two-line
+     labels fit their ~150px grid cells without wrapping to three */
+  [data-bn-item] > span + span,
+  [data-bb-item] > span + span { letter-spacing: 1.6px !important; font-size: 12px !important; }
+
+  /* footer: the desktop 4-column grid becomes a tidy 2x2 */
+  [data-footer-grid] { grid-template-columns: repeat(2, 1fr) !important; gap: 34px 20px !important; }
+}

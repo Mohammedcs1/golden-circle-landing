@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden Circle — Where Brands Meet Authentic Voices</title>
+<meta name="description" content="Golden Circle connects premium brands with talented creators to build authentic content, powerful collaborations, and measurable results.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%20100%20100'%20xmlns='http://www.w3.org/2000/svg'%3E%3Crect%20width='100'%20height='100'%20fill='%23000000'/%3E%3Ccircle%20cx='50'%20cy='50'%20r='20'%20fill='none'%20stroke='%23D9B06A'%20stroke-width='2.5'/%3E%3Ccircle%20cx='50'%20cy='50'%20r='4'%20fill='%23f1c058'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<!-- fixed global navigation — persists across the whole site; JS shows it on scroll-down, hides on scroll-up -->
+<div data-ref="navRef" style="position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:clamp(10px, 1.8vh, 18px) clamp(24px, 3.5vw, 56px); opacity:0; transform:translateY(0); background:transparent; transition:transform 0.5s cubic-bezier(.22,1,.36,1), background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease; will-change:transform;">
+  <a href="index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+    <svg viewBox="0 0 24 24" style="width:26px; height:26px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-linecap="round">
+      <circle cx="12" cy="12" r="9.4" stroke-width="0.9" opacity="0.8"></circle>
+      <path d="M12 5.6 a6.4 6.4 0 1 0 6.4 6.4" stroke-width="1.1"></path>
+      <path d="M12 8.8 a3.2 3.2 0 1 1 -3.2 3.2" stroke-width="1"></path>
+    </svg>
+    <span style="font-family:'Cinzel', serif; font-weight:600; font-size:clamp(12px, 1.05vw, 15px); letter-spacing:3.5px; color:#D9B06A;">GOLDEN CIRCLE</span>
+  </a>
+  <div data-nav-center style="position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:clamp(26px, 3.4vw, 52px);">
+    <a href="#our-story" data-scroll style="display:flex; align-items:center; gap:7px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(12px, 0.95vw, 14px); letter-spacing:1.8px; color:rgba(236, 227, 210, 0.72); text-decoration:none; transition:color 0.4s ease;" data-hover="color:#F3D49A;">About&nbsp;us <span style="font-size:8px; opacity:0.6;">▾</span></a>
+    <a href="#contact" data-scroll style="display:flex; align-items:center; gap:7px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(12px, 0.95vw, 14px); letter-spacing:1.8px; color:rgba(236, 227, 210, 0.72); text-decoration:none; transition:color 0.4s ease;" data-hover="color:#F3D49A;">Contact&nbsp;us <span style="font-size:8px; opacity:0.6;">▾</span></a>
+  </div>
+  <div data-nav-actions style="display:flex; align-items:center; gap:clamp(16px, 2vw, 30px); flex-shrink:0;">
+    <a href="pages/coming-soon.html" style="white-space:nowrap; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(12px, 0.95vw, 14px); letter-spacing:1.5px; color:rgba(236, 227, 210, 0.72); text-decoration:none; transition:color 0.4s ease;" data-hover="color:#F3D49A;">Log in</a>
+    <a href="pages/coming-soon.html" style="white-space:nowrap; font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 14px); letter-spacing:1.5px; color:#F3D49A; text-decoration:none; border:1px solid rgba(217,176,106,0.55); border-radius:999px; padding:clamp(8px, 1.3vh, 11px) clamp(20px, 2vw, 28px); transition:border-color 0.45s ease, box-shadow 0.45s ease, background 0.45s ease;" data-hover="border-color:rgba(255,237,140,0.85); background:rgba(213,153,41,0.08); box-shadow:0 0 24px rgba(243,212,154,0.22);">Sign in</a>
+  </div>
+</div>
+<div data-ref="wrapRef" style="height:460vh; background:#000000; position:relative;">
+  <div data-ref="stageRef" data-screen-label="Scene 1 — Logo" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#000000;">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; display:block;">
+      <defs>
+        <linearGradient data-ref="gradRef" id="gcGold" gradientUnits="userSpaceOnUse" x1="-350" y1="0" x2="1950" y2="70">
+          <stop offset="0" style="stop-color:#745d2a;"></stop>
+          <stop offset="0.13" style="stop-color:#b8780c;"></stop>
+          <stop offset="0.25" style="stop-color:#d59929;"></stop>
+          <stop offset="0.36" style="stop-color:#ffed8c;"></stop>
+          <stop offset="0.47" style="stop-color:#f1c058;"></stop>
+          <stop offset="0.58" style="stop-color:#b8780c;"></stop>
+          <stop offset="0.72" style="stop-color:#d59929;"></stop>
+          <stop offset="0.84" style="stop-color:#ffed8c;"></stop>
+          <stop offset="1" style="stop-color:#745d2a;"></stop>
+        </linearGradient>
+        <radialGradient id="gcGlow">
+          <stop offset="0" style="stop-color:#ffed8c; stop-opacity:0.85;"></stop>
+          <stop offset="0.28" style="stop-color:#f1c058; stop-opacity:0.32;"></stop>
+          <stop offset="0.65" style="stop-color:#b8780c; stop-opacity:0.08;"></stop>
+          <stop offset="1" style="stop-color:#000000; stop-opacity:0;"></stop>
+        </radialGradient>
+      </defs>
+      <circle data-ref="pulseGlowRef" cx="800" cy="450" r="260" fill="url(#gcGlow)" opacity="0"></circle>
+      <g data-ref="linesGlowRef" opacity="0"></g>
+      <g data-ref="linesCoreRef" opacity="0"></g>
+      <circle data-ref="rippleRef" cx="800" cy="450" r="30" fill="none" stroke="#f1c058" opacity="0"></circle>
+      <g data-ref="logoTextRef" opacity="0">
+        <rect x="540" y="420" width="520" height="60" fill="#000000"></rect>
+        <text x="800" y="451" fill="url(#gcGold)" style="font-family:'Cinzel', serif; font-size:36px; font-weight:600; letter-spacing:5px; text-anchor:middle; dominant-baseline:central; text-transform:uppercase;">Golden Circle</text>
+      </g>
+    </svg>
+
+    <!-- cinematic vignette -->
+
+
+    <!-- thin curved gold edge lines -->
+    <svg viewBox="0 0 200 900" preserveAspectRatio="none" style="position:absolute; top:0; left:0; height:100%; width:clamp(70px, 10vw, 180px); pointer-events:none; z-index:1;">
+      <path d="M150 -10 C 30 230, 30 670, 150 910" fill="none" stroke="url(#gcGold)" stroke-width="1" opacity="0.45"></path>
+      <path d="M178 -10 C 70 250, 70 650, 178 910" fill="none" stroke="url(#gcGold)" stroke-width="0.6" opacity="0.22"></path>
+    </svg>
+    <svg viewBox="0 0 200 900" preserveAspectRatio="none" style="position:absolute; top:0; right:0; height:100%; width:clamp(70px, 10vw, 180px); pointer-events:none; z-index:1; transform:scaleX(-1);">
+      <path d="M150 -10 C 30 230, 30 670, 150 910" fill="none" stroke="url(#gcGold)" stroke-width="1" opacity="0.45"></path>
+      <path d="M178 -10 C 70 250, 70 650, 178 910" fill="none" stroke="url(#gcGold)" stroke-width="0.6" opacity="0.22"></path>
+    </svg>
+
+    <!-- hero content below the logo -->
+    <div data-ref="heroTopRef" style="position: absolute; left: 0; right: 0; top: min(75.5%, calc(100% - 220px)); bottom: clamp(70px, 14vh, 120px); z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(10px, 2.2vh, 24px); text-align: center; padding: 0 24px; opacity: 0; pointer-events: none;">
+      <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(760px, 94%); height: 150%; background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 42%, rgba(0,0,0,0) 72%); pointer-events: none; z-index: -1"></div>
+      <div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1.5vh, 13px); letter-spacing:6px; color:#C68A3D;">WHERE BRANDS MEET AUTHENTIC VOICES</div>
+      <p style="margin: 0; max-width: 580px; font-family: Jost, sans-serif; font-weight: 300; font-size: clamp(12px, 1.9vh, 16px); line-height: 1.85; letter-spacing: 0.4px; color: rgba(236, 227, 210, 0.62); text-wrap: pretty; display: none">Golden Circle connects premium brands with talented creators to build authentic content, powerful collaborations, and measurable results.</p>
+      <div data-hero-cta style="display:flex; align-items:center; gap:clamp(14px, 1.8vw, 24px); margin-top:clamp(2px, 1vh, 10px);">
+        <a href="pages/coming-soon.html" style="white-space:nowrap; display:inline-flex; align-items:center; gap:14px; padding:clamp(10px, 1.8vh, 15px) clamp(26px, 2.6vw, 38px); border-radius:999px; border:1px solid rgba(217,176,106,0.5); background:transparent; text-decoration:none; font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 1.8vh, 15px); letter-spacing:1px; color:#ECE6DD; transition:transform 0.5s cubic-bezier(.22,1,.36,1), border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;" data-hover="transform:translateY(-2px); border-color:rgba(255,237,140,0.85); background:rgba(213,153,41,0.07); box-shadow:0 0 32px rgba(243,212,154,0.2);">I'm a Brand <span style="color:#D9B06A;">→</span></a>
+        <a href="pages/coming-soon.html" style="white-space:nowrap; display:inline-flex; align-items:center; gap:14px; padding:clamp(10px, 1.8vh, 15px) clamp(26px, 2.6vw, 38px); border-radius:999px; border:1px solid rgba(217,176,106,0.5); background:transparent; text-decoration:none; font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 1.8vh, 15px); letter-spacing:1px; color:#ECE6DD; transition:transform 0.5s cubic-bezier(.22,1,.36,1), border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;" data-hover="transform:translateY(-2px); border-color:rgba(255,237,140,0.85); background:rgba(213,153,41,0.07); box-shadow:0 0 32px rgba(243,212,154,0.2);">I'm a Creator <span style="color:#D9B06A;">→</span></a>
+      </div>
+    </div>
+
+    <div data-ref="heroRef" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px, 1.6vh, 20px); text-align:center; opacity:0; pointer-events:none;">
+      <div data-hero-final style="box-sizing: border-box; display: flex; flex-direction: column; gap: clamp(8px, 1.5vh, 12px); justify-content: center; align-items: center; max-width: 94%;"><div style="font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(30px, 7.4vh, 84px); letter-spacing:2px; color:#f1c058; line-height:1.05;">Golden Circle</div><div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(9px, 1.4vh, 12px); letter-spacing:7px; color:#b8780c;">WHERE BRANDS MEET AUTHENTIC VOICES</div><div style="max-width: 580px; font-family: Jost, sans-serif; font-weight: 300; font-size: clamp(11px, 1.9vh, 15px); line-height: 1.85; letter-spacing: 0.6px; color: rgba(241, 192, 88, 0.55); text-wrap: pretty;">Golden Circle connects premium brands with talented creators to build authentic content, powerful collaborations, and measurable results.</div></div>
+
+
+      <div style="display:flex; align-items:center; gap:clamp(14px, 1.8vw, 24px); margin-top:clamp(6px, 1.6vh, 20px);">
+
+
+      </div>
+    </div>
+    <div data-ref="hintRef" style="position:absolute; left:50%; bottom:34px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:10px; opacity:0;">
+      <div style="font-family:Jost, sans-serif; font-size:10px; letter-spacing:5px; color:rgba(241, 192, 88, 0.7);">SCROLL</div>
+      <div style="width:1px; height:44px; background:linear-gradient(rgba(241, 192, 88, 0.8), rgba(241, 192, 88, 0)); animation:gcHintLine 2.2s ease-in-out infinite;"></div>
+    </div>
+  </div>
+</div>
+
+<section id="our-story" data-ref="storyRef" data-screen-label="Our Story" style="position:relative; background:#000000; overflow:hidden; padding:clamp(90px, 15vh, 190px) clamp(24px, 6vw, 96px) clamp(90px, 14vh, 170px);">
+
+  <!-- edge ribbons continuing from the hero -->
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; left:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5;">
+    <path d="M-40 -20 C 120 240, 40 460, 150 700 C 250 920, 90 1140, 180 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M-70 40 C 90 300, 20 520, 120 780 C 210 1010, 60 1220, 140 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; right:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5; transform:scaleX(-1);">
+    <path d="M-40 -20 C 120 260, 30 480, 150 720 C 260 940, 90 1160, 180 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M-70 60 C 100 320, 10 540, 130 800 C 220 1030, 70 1240, 150 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+
+  <div style="position:relative; max-width:1180px; margin:0 auto; z-index:2;">
+
+    <!-- header -->
+    <div style="text-align:center;">
+      <div data-ref="sLabelRef" style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1vw, 12px); letter-spacing:7px; color:#b8780c; opacity:0; transform:translateY(18px);">OUR STORY</div>
+      <h2 data-ref="sHeadRef" style="margin:clamp(20px, 3vh, 34px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(40px, 6vw, 88px); line-height:1.04; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(24px); text-wrap:balance;">Where Brands Meet<br>Authentic Voices.</h2>
+    </div>
+
+    <!-- story block -->
+    <p data-ref="sParaRef" style="max-width:640px; margin:clamp(34px, 6vh, 62px) auto 0; text-align:center; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(16px, 1.35vw, 20px); line-height:2; letter-spacing:0.3px; color:rgba(236, 227, 210, 0.72); opacity:0; transform:translateY(22px); text-wrap:pretty;">People connect with people before they connect with products. Brands deserve creators who understand their vision — and creators deserve opportunities that respect their craft. Golden Circle exists between those two worlds, turning collaborations into stories audiences actually trust.</p>
+
+    <!-- two worlds -->
+    <div style="position:relative; margin-top:clamp(72px, 13vh, 150px);">
+
+      <!-- connecting ribbon -->
+      <svg data-ref="ribSvgRef" viewBox="0 0 1600 240" preserveAspectRatio="none" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:100vw; height:clamp(150px, 26vh, 260px); pointer-events:none; z-index:1;">
+        <path data-ref="ribGlowRef" fill="none" stroke="url(#gcGold)" stroke-width="5" stroke-linecap="round" opacity="0"></path>
+        <path data-ref="ribCoreRef" fill="none" stroke="url(#gcGold)" stroke-width="1.6" stroke-linecap="round" opacity="0"></path>
+        <path data-ref="ribEchoRef" fill="none" stroke="url(#gcGold)" stroke-width="0.8" stroke-linecap="round" opacity="0"></path>
+      </svg>
+
+      <div data-two-col style="position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px, 9vw, 150px);">
+        <div data-ref="colLeftRef" style="opacity:0; transform:translateY(26px);">
+          <div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(9px, 0.85vw, 11px); letter-spacing:5px; color:#b8780c;">01</div>
+          <h3 style="margin:clamp(12px, 2vh, 20px) 0 clamp(18px, 3vh, 28px); font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(28px, 3.2vw, 44px); letter-spacing:0.5px; color:#ece3d2;">For Brands</h3>
+          <p style="margin:0; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(14px, 1.05vw, 17px); line-height:1.95; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.66); text-wrap:pretty;">Find creators whose content feels natural, and aligned with who you are. No chasing trends. No artificial advertising. Only genuine storytelling that builds trust.</p>
+        </div>
+        <div data-ref="colRightRef" style="opacity:0; transform:translateY(26px); text-align:right;">
+          <div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(9px, 0.85vw, 11px); letter-spacing:5px; color:#b8780c;">02</div>
+          <h3 style="margin:clamp(12px, 2vh, 20px) 0 clamp(18px, 3vh, 28px); font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(28px, 3.2vw, 44px); letter-spacing:0.5px; color:#ece3d2;">For Creators</h3>
+          <p style="margin:0 0 0 auto; max-width:100%; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(14px, 1.05vw, 17px); line-height:1.95; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.66); text-wrap:pretty;">Work with brands that value creativity over numbers. Build partnerships that mean something. Create work that people genuinely enjoy watching.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-ref="hiwRef" data-screen-label="Creator Journey" style="position:relative; background:#000000; overflow:hidden; padding:clamp(80px, 13vh, 170px) clamp(24px, 6vw, 96px) clamp(90px, 16vh, 200px);">
+
+  <!-- edge ribbons continuing the golden thread from Our Story -->
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; left:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5;">
+    <path d="M180 -20 C 70 240, 150 470, 60 710 C -30 940, 130 1160, 40 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M150 40 C 40 300, 120 520, 30 780 C -50 1010, 110 1220, 20 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; right:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5; transform:scaleX(-1);">
+    <path d="M180 -20 C 70 260, 140 490, 60 730 C -30 950, 130 1170, 40 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M150 60 C 50 320, 110 540, 30 800 C -50 1030, 120 1240, 20 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+
+  <div style="position:relative; max-width:1180px; margin:0 auto; z-index:2;">
+
+    <!-- header -->
+    <div style="text-align:center;">
+      <div data-ref="hLabelRef" style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1vw, 12px); letter-spacing:7px; color:#b8780c; opacity:0; transform:translateY(18px);">THE CREATOR JOURNEY</div>
+      <h2 data-ref="hHeadRef" style="margin:clamp(20px, 3vh, 34px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(40px, 6vw, 88px); line-height:1.04; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(24px); text-wrap:balance;">Five Steps.<br>One Golden Thread.</h2>
+    </div>
+
+    <!-- workflow: five floating cards on one curved gold line.
+         On phones the outer wrapper becomes a horizontal swipe container
+         (mobile.css) so the desktop composition survives untouched. -->
+    <div data-journey-scroll>
+    <div data-ref="wfRef" style="position:relative; margin-top:clamp(64px, 10vh, 130px); padding:0 clamp(0px, 1vw, 20px);">
+
+      <!-- the connecting curved line (path built + drawn in JS) -->
+      <svg data-ref="wfSvgRef" viewBox="0 0 1180 460" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0;">
+        <defs>
+          <linearGradient id="gcWork" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" style="stop-color:#A56A2A;"></stop>
+            <stop offset="0.34" style="stop-color:#C68A3D;"></stop>
+            <stop offset="0.62" style="stop-color:#D9B06A;"></stop>
+            <stop offset="1" style="stop-color:#F3D49A;"></stop>
+          </linearGradient>
+        </defs>
+        <path data-ref="wfLineGlowRef" d="" fill="none" stroke="url(#gcWork)" stroke-width="6" stroke-linecap="round" opacity="0.12" style="animation:gcLineGlow 7s ease-in-out infinite;"></path>
+        <path data-ref="wfLineRef" d="" fill="none" stroke="url(#gcWork)" stroke-width="1.5" stroke-linecap="round"></path>
+      </svg>
+
+      <!-- soft radial ambience behind the timeline -->
+      <div data-journey-glow style="position:absolute; inset:-24% -12%; background:radial-gradient(ellipse at 50% 36%, rgba(198,138,61,0.06), transparent 62%); pointer-events:none; z-index:0;"></div>
+
+      <!-- cards -->
+      <div style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
+
+        <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
+          <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 7s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8.2" r="3.4"></circle>
+                  <path d="M5.2 19.6 C 6.2 15.6, 8.8 13.9, 12 13.9 C 15.2 13.9, 17.8 15.6, 18.8 19.6"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Build Your Profile</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Create your creator profile and showcase your content, audience and strengths.</p>
+              </div>
+            </div>
+          </div>
+          <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">1</div>
+        </div>
+
+        <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(6px);">
+          <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatB 7.6s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5.6" y="4.2" width="12.8" height="16" rx="2.2"></rect>
+                  <path d="M9.2 9.4 h5.6 M9.2 12.8 h5.6 M9.2 16.2 h3.4"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Apply for Campaigns</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Browse premium campaigns and apply to the opportunities that match your niche.</p>
+              </div>
+            </div>
+          </div>
+          <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.4s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">2</div>
+        </div>
+
+        <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(-30px);">
+          <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 8.2s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(30,23,14,0.7), rgba(9,7,5,0.9)); box-shadow:0 30px 60px rgba(0,0,0,0.66), 0 0 54px rgba(198,138,61,0.1), inset 0 1px 0 rgba(243,212,154,0.12), inset 0 0 0 1px rgba(217,176,106,0.24); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 38px 70px rgba(0,0,0,0.74), 0 0 72px rgba(198,138,61,0.16), inset 0 1px 0 rgba(243,212,154,0.18), inset 0 0 0 1px rgba(217,176,106,0.34);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.4 14.2 V7.2 a2.4 2.4 0 0 1 2.4 -2.4 h10.4 a2.4 2.4 0 0 1 2.4 2.4 v4.8 a2.4 2.4 0 0 1 -2.4 2.4 H9.4 l-5 4.4 z"></path>
+                  <path d="M12.9 6.6 L10.9 9.8 h2.5 L11.5 12.8"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Instant Reply</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Receive quick responses from brands without long waiting periods.</p>
+              </div>
+            </div>
+          </div>
+          <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.6); background:#050505; box-shadow:0 0 16px rgba(243,212,154,0.34); animation:gcDotPulse 4.6s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">3</div>
+        </div>
+
+        <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(6px);">
+          <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatB 7.2s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3.8" y="6.4" width="12.4" height="11.2" rx="2.4"></rect>
+                  <path d="M16.2 10.6 L20.2 8.4 v7.2 l-4 -2.2"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Create Video</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Produce authentic content that matches your style while meeting the brand's vision.</p>
+              </div>
+            </div>
+          </div>
+          <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.2s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">4</div>
+        </div>
+
+        <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
+          <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 7.8s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.4 8.6 a2.2 2.2 0 0 1 2.2 -2.2 h10.8 a2.2 2.2 0 0 1 2.2 2.2 v8.8 a2.2 2.2 0 0 1 -2.2 2.2 H6.6 a2.2 2.2 0 0 1 -2.2 -2.2 z"></path>
+                  <path d="M19.6 11.6 h-3.6 a1.7 1.7 0 0 0 0 3.4 h3.6"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Payment on Time</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Receive secure and timely payments after successfully completing your campaign.</p>
+              </div>
+            </div>
+          </div>
+          <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.8s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">5</div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <!-- the journey continues: why creators choose golden circle -->
+    <div data-ref="bnRef" style="position:relative; margin-top:clamp(90px, 13vh, 160px); text-align:center;">
+      <div style="position:absolute; inset:-30% -12%; background:radial-gradient(ellipse at 50% 45%, rgba(198,138,61,0.05), transparent 62%); pointer-events:none;"></div>
+
+      <!-- subtle ambient particles -->
+      <svg viewBox="0 0 1000 500" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+        <circle cx="110" cy="80" r="1.4" fill="#D9B06A" style="animation:gcTwinkle 6s ease-in-out infinite;"></circle>
+        <circle cx="870" cy="60" r="1.1" fill="#F3D49A" style="animation:gcTwinkle 7.4s ease-in-out infinite; animation-delay:1.2s;"></circle>
+        <circle cx="220" cy="330" r="1" fill="#C68A3D" style="animation:gcTwinkle 8.2s ease-in-out infinite; animation-delay:2.6s;"></circle>
+        <circle cx="640" cy="420" r="1.3" fill="#D9B06A" style="animation:gcTwinkle 6.8s ease-in-out infinite; animation-delay:0.7s;"></circle>
+        <circle cx="930" cy="300" r="1" fill="#F3D49A" style="animation:gcTwinkle 7.8s ease-in-out infinite; animation-delay:3.4s;"></circle>
+        <circle cx="420" cy="120" r="0.9" fill="#C68A3D" style="animation:gcTwinkle 9s ease-in-out infinite; animation-delay:1.9s;"></circle>
+        <circle cx="60" cy="430" r="1.2" fill="#D9B06A" style="animation:gcTwinkle 7.1s ease-in-out infinite; animation-delay:4.2s;"></circle>
+        <circle cx="540" cy="40" r="1" fill="#F3D49A" style="animation:gcTwinkle 8.6s ease-in-out infinite; animation-delay:2.1s;"></circle>
+      </svg>
+
+      <!-- flowing divider: the thread continues -->
+      <div data-bn-item="" style="position:relative; margin:0 auto; width:min(560px, 74%); opacity:0; transform:translateY(16px); transition:opacity 1.4s ease, transform 1.4s cubic-bezier(.22,1,.36,1);">
+        <svg viewBox="0 0 560 26" preserveAspectRatio="none" style="width:100%; height:26px; display:block;">
+          <path d="M0 13 C 95 5, 185 21, 280 13 C 375 5, 465 21, 560 13" fill="none" stroke="url(#gcWork)" stroke-width="1" opacity="0.45"></path>
+          <circle cx="280" cy="13" r="2.6" fill="#F3D49A" opacity="0.85" style="animation:gcTwinkle 5s ease-in-out infinite;"></circle>
+        </svg>
+      </div>
+
+      <h3 data-bn-item="" style="position:relative; margin:clamp(56px, 8vh, 100px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(30px, 3.6vw, 56px); line-height:1.08; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(18px); transition:opacity 1.4s ease, transform 1.5s cubic-bezier(.22,1,.36,1); text-wrap:balance;">Why Creators Choose Golden Circle.</h3>
+      <p data-bn-item="" style="position:relative; max-width:540px; margin:clamp(18px, 2.6vh, 28px) auto 0; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(14px, 1.1vw, 17px); line-height:1.9; letter-spacing:0.3px; color:rgba(236, 227, 210, 0.6); opacity:0; transform:translateY(16px); transition:opacity 1.4s ease, transform 1.5s cubic-bezier(.22,1,.36,1); text-wrap:pretty;">Designed to make collaborating with premium brands simple, transparent and rewarding.</p>
+
+      <div style="position:relative; margin-top:clamp(48px, 7vh, 84px); display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:clamp(24px, 3vw, 44px); align-items:start;">
+        <div data-bn-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 4.6s ease-in-out infinite;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Find &amp; Apply<br>for Campaigns</span>
+        </div>
+        <div data-bn-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 5.2s ease-in-out infinite; animation-delay:0.8s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Connect Directly<br>with Top Brands</span>
+        </div>
+        <div data-bn-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 4.9s ease-in-out infinite; animation-delay:1.6s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Guaranteed<br>On-Time Payments</span>
+        </div>
+        <div data-bn-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 5.5s ease-in-out infinite; animation-delay:2.4s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Everything<br>in One Place</span>
+        </div>
+      </div>
+
+      <!-- creator CTA -->
+      <div data-bn-item="" style="position:relative; margin-top:clamp(80px, 12vh, 150px); display:flex; flex-direction:column; align-items:center; gap:0; opacity:0; transform:translateY(16px); transition:opacity 1.3s ease, transform 1.4s cubic-bezier(.22,1,.36,1);">
+        <div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1vw, 12px); letter-spacing:7px; color:#b8780c;">READY TO START?</div>
+        <h3 style="margin:clamp(16px, 2.4vh, 26px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(28px, 3vw, 48px); line-height:1.1; letter-spacing:0.5px; color:#ece3d2; text-wrap:balance;">Join Golden Circle Today</h3>
+        <p style="max-width:520px; margin:clamp(14px, 2.2vh, 24px) auto 0; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 16px); line-height:1.9; letter-spacing:0.3px; color:rgba(236, 227, 210, 0.58); text-wrap:pretty;">Create your profile, connect with premium brands, and start receiving campaign opportunities designed for creators who value quality over quantity.</p>
+        <a href="pages/coming-soon.html" style="margin-top:clamp(30px, 4.5vh, 48px); display:inline-flex; align-items:center; gap:14px; padding:clamp(15px, 2.2vh, 20px) clamp(36px, 4vw, 56px); border-radius:999px; border:1px solid rgba(217,176,106,0.55); background:linear-gradient(165deg, rgba(28,21,13,0.6), rgba(9,7,5,0.85)); box-shadow:0 18px 40px rgba(0,0,0,0.55), 0 0 30px rgba(198,138,61,0.12), inset 0 1px 0 rgba(243,212,154,0.1); text-decoration:none; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(18px, 1.4vw, 23px); letter-spacing:0.6px; color:#F3D49A; transition:transform 0.55s cubic-bezier(.22,1,.36,1), box-shadow 0.55s ease, border-color 0.55s ease;" data-hover="transform:translateY(-3px); border-color:rgba(255,237,140,0.85); box-shadow:0 24px 52px rgba(0,0,0,0.65), 0 0 54px rgba(243,212,154,0.28), inset 0 1px 0 rgba(243,212,154,0.18);">
+          <svg viewBox="0 0 24 24" style="width:22px; height:22px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="8.4" r="3.2"></circle>
+            <path d="M4.4 19.2 C 5.3 15.6, 7.5 14, 10 14 C 12.5 14, 14.7 15.6, 15.6 19.2"></path>
+            <path d="M18.2 8.2 v5 M15.7 10.7 h5"></path>
+          </svg>
+          <span>Join as a Creator</span>
+          <span style="font-family:Jost, sans-serif; font-weight:300; font-size:0.85em;">→</span>
+        </a>
+        <div style="margin-top:clamp(16px, 2.4vh, 24px); font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); letter-spacing:1.6px; color:rgba(236, 227, 210, 0.42);">Free to join&nbsp;&nbsp;·&nbsp;&nbsp;Takes less than 2 minutes</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section data-ref="brandRef" data-screen-label="Brand Journey" style="position:relative; background:#000000; overflow:hidden; padding:clamp(80px, 13vh, 170px) clamp(24px, 6vw, 96px) clamp(90px, 16vh, 200px);">
+
+  <!-- edge ribbons continuing the golden thread -->
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; left:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5;">
+    <path d="M40 -20 C 150 240, 70 470, 160 710 C 250 940, 90 1160, 180 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M20 40 C 130 300, 50 520, 140 780 C 220 1010, 60 1220, 150 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+  <svg viewBox="0 0 320 1400" preserveAspectRatio="none" style="position:absolute; top:0; right:0; height:100%; width:clamp(90px, 14vw, 260px); pointer-events:none; opacity:0.5; transform:scaleX(-1);">
+    <path d="M40 -20 C 150 260, 60 490, 160 730 C 250 950, 90 1170, 180 1420" fill="none" stroke="url(#gcGold)" stroke-width="1.1" opacity="0.55"></path>
+    <path d="M20 60 C 140 320, 40 540, 140 800 C 220 1030, 70 1240, 150 1440" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.32"></path>
+  </svg>
+
+  <div style="position:relative; max-width:1180px; margin:0 auto; z-index:2;">
+
+    <!-- header -->
+    <div style="text-align:center;">
+      <div data-ref="bLabelRef" style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1vw, 12px); letter-spacing:7px; color:#b8780c; opacity:0; transform:translateY(18px);">THE BRAND JOURNEY</div>
+      <h2 data-ref="bHeadRef" style="margin:clamp(20px, 3vh, 34px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(40px, 6vw, 88px); line-height:1.04; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(24px); text-wrap:balance;">Five Steps.<br>One Successful Campaign.</h2>
+    </div>
+
+    <!-- workflow: five floating cards on one curved gold line.
+         Same phone-swipe wrapper as the creator journey (mobile.css). -->
+    <div data-journey-scroll>
+    <div data-ref="bwRef" style="position:relative; margin-top:clamp(64px, 10vh, 130px); padding:0 clamp(0px, 1vw, 20px);">
+
+      <svg data-ref="bwSvgRef" viewBox="0 0 1180 460" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0;">
+        <path data-ref="bwLineGlowRef" d="" fill="none" stroke="url(#gcWork)" stroke-width="6" stroke-linecap="round" opacity="0.12" style="animation:gcLineGlow 7s ease-in-out infinite;"></path>
+        <path data-ref="bwLineRef" d="" fill="none" stroke="url(#gcWork)" stroke-width="1.5" stroke-linecap="round"></path>
+      </svg>
+
+      <div data-journey-glow style="position:absolute; inset:-24% -12%; background:radial-gradient(ellipse at 50% 36%, rgba(198,138,61,0.06), transparent 62%); pointer-events:none; z-index:0;"></div>
+
+      <!-- cards -->
+      <div style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
+
+        <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
+          <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 7s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6.2" y="4.6" width="11.6" height="14.8" rx="1.8"></rect>
+                  <path d="M9.4 8.4 h1.6 M13 8.4 h1.6 M9.4 11.8 h1.6 M13 11.8 h1.6 M10.6 19.4 v-3.2 h2.8 v3.2"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Create Company Profile</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Create your business profile, introduce your brand, define your industry and marketing goals.</p>
+              </div>
+            </div>
+          </div>
+          <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">1</div>
+        </div>
+
+        <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(6px);">
+          <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatB 7.6s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.6 10.4 L14.6 5.8 v12 L4.6 13.4 z"></path>
+                  <path d="M6.8 13.9 v3.6 a1.3 1.3 0 0 0 1.3 1.3 h0.6 a1.3 1.3 0 0 0 1.3 -1.3 v-2.6"></path>
+                  <path d="M17.4 9.2 a3.4 3.4 0 0 1 0 5.4"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Post Campaigns</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Launch campaigns in minutes by defining your objectives, budget, timeline and creator requirements.</p>
+              </div>
+            </div>
+          </div>
+          <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.4s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">2</div>
+        </div>
+
+        <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(-30px);">
+          <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 8.2s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(30,23,14,0.7), rgba(9,7,5,0.9)); box-shadow:0 30px 60px rgba(0,0,0,0.66), 0 0 54px rgba(198,138,61,0.1), inset 0 1px 0 rgba(243,212,154,0.12), inset 0 0 0 1px rgba(217,176,106,0.24); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 38px 70px rgba(0,0,0,0.74), 0 0 72px rgba(198,138,61,0.16), inset 0 1px 0 rgba(243,212,154,0.18), inset 0 0 0 1px rgba(217,176,106,0.34);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10.6" cy="10.6" r="5.2"></circle>
+                  <path d="M14.4 14.4 L19.4 19.4"></path>
+                  <circle cx="10.6" cy="9.2" r="1.7"></circle>
+                  <path d="M7.8 13.6 c 0.6 -1.6, 1.7 -2.3, 2.8 -2.3 c 1.1 0, 2.2 0.7, 2.8 2.3"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Hire Creators</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Browse verified creators, compare portfolios and select the best talent for your campaign.</p>
+              </div>
+            </div>
+          </div>
+          <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.6); background:#050505; box-shadow:0 0 16px rgba(243,212,154,0.34); animation:gcDotPulse 4.6s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">3</div>
+        </div>
+
+        <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(6px);">
+          <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatB 7.2s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5.6" y="4.2" width="12.8" height="16" rx="2.2"></rect>
+                  <path d="M9 12.4 L11.2 14.6 L15.2 9.8"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Review Deliverables</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Review submitted content, request revisions when needed, approve only the work that matches your brand standards.</p>
+              </div>
+            </div>
+          </div>
+          <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.2s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">4</div>
+        </div>
+
+        <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
+          <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
+            <div style="animation:gcFloatA 7.8s ease-in-out infinite;">
+              <div style="position:relative; border-radius:20px; padding:clamp(20px,2.2vw,30px) clamp(14px,1.7vw,24px); background:linear-gradient(165deg, rgba(28,21,13,0.65), rgba(9,7,5,0.88)); box-shadow:0 26px 52px rgba(0,0,0,0.62), 0 0 46px rgba(198,138,61,0.07), inset 0 1px 0 rgba(243,212,154,0.1), inset 0 0 0 1px rgba(217,176,106,0.18); display:flex; flex-direction:column; align-items:center; gap:clamp(10px,1.5vh,16px); text-align:center; transition:transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s ease;" data-hover="transform:translateY(-6px); box-shadow:0 34px 64px rgba(0,0,0,0.72), 0 0 64px rgba(198,138,61,0.14), inset 0 1px 0 rgba(243,212,154,0.16), inset 0 0 0 1px rgba(217,176,106,0.3);">
+                <svg viewBox="0 0 24 24" style="width:clamp(26px,2.4vw,34px); height:clamp(26px,2.4vw,34px);" fill="none" stroke="url(#gcWork)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.4 8.6 a2.2 2.2 0 0 1 2.2 -2.2 h10.8 a2.2 2.2 0 0 1 2.2 2.2 v8.8 a2.2 2.2 0 0 1 -2.2 2.2 H6.6 a2.2 2.2 0 0 1 -2.2 -2.2 z"></path>
+                  <path d="M19.6 11.6 h-3.6 a1.7 1.7 0 0 0 0 3.4 h3.6"></path>
+                </svg>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(17px,1.4vw,22px); letter-spacing:0.4px; color:#ECE6DD;">Payment</div>
+                <p style="margin:0; font-family:Jost,sans-serif; font-weight:300; font-size:clamp(11px,0.85vw,13px); line-height:1.75; letter-spacing:0.2px; color:rgba(236,230,221,0.55); text-wrap:pretty;">Release secure payments only after approval. Every transaction is protected and completed on time.</p>
+              </div>
+            </div>
+          </div>
+          <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.8s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">5</div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <!-- why brands choose golden circle -->
+    <div data-ref="bbRef" style="position:relative; margin-top:clamp(90px, 13vh, 160px); text-align:center;">
+      <div style="position:absolute; inset:-30% -12%; background:radial-gradient(ellipse at 50% 45%, rgba(198,138,61,0.05), transparent 62%); pointer-events:none;"></div>
+
+      <!-- subtle ambient particles -->
+      <svg viewBox="0 0 1000 500" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+        <circle cx="150" cy="70" r="1.3" fill="#D9B06A" style="animation:gcTwinkle 6.4s ease-in-out infinite;"></circle>
+        <circle cx="840" cy="90" r="1.1" fill="#F3D49A" style="animation:gcTwinkle 7.2s ease-in-out infinite; animation-delay:1.5s;"></circle>
+        <circle cx="260" cy="360" r="1" fill="#C68A3D" style="animation:gcTwinkle 8.4s ease-in-out infinite; animation-delay:2.2s;"></circle>
+        <circle cx="600" cy="430" r="1.2" fill="#D9B06A" style="animation:gcTwinkle 6.6s ease-in-out infinite; animation-delay:0.9s;"></circle>
+        <circle cx="950" cy="280" r="1" fill="#F3D49A" style="animation:gcTwinkle 7.6s ease-in-out infinite; animation-delay:3.1s;"></circle>
+        <circle cx="460" cy="100" r="0.9" fill="#C68A3D" style="animation:gcTwinkle 8.8s ease-in-out infinite; animation-delay:1.7s;"></circle>
+        <circle cx="80" cy="410" r="1.2" fill="#D9B06A" style="animation:gcTwinkle 7s ease-in-out infinite; animation-delay:3.9s;"></circle>
+      </svg>
+
+      <!-- flowing divider: the thread continues -->
+      <div data-bb-item="" style="position:relative; margin:0 auto; width:min(560px, 74%); opacity:0; transform:translateY(16px); transition:opacity 1.4s ease, transform 1.4s cubic-bezier(.22,1,.36,1);">
+        <svg viewBox="0 0 560 26" preserveAspectRatio="none" style="width:100%; height:26px; display:block;">
+          <path d="M0 13 C 95 21, 185 5, 280 13 C 375 21, 465 5, 560 13" fill="none" stroke="url(#gcWork)" stroke-width="1" opacity="0.45"></path>
+          <circle cx="280" cy="13" r="2.6" fill="#F3D49A" opacity="0.85" style="animation:gcTwinkle 5s ease-in-out infinite;"></circle>
+        </svg>
+      </div>
+
+      <h3 data-bb-item="" style="position:relative; margin:clamp(56px, 8vh, 100px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(30px, 3.6vw, 56px); line-height:1.08; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(18px); transition:opacity 1.4s ease, transform 1.5s cubic-bezier(.22,1,.36,1); text-wrap:balance;">Why Brands Choose Golden Circle.</h3>
+      <p data-bb-item="" style="position:relative; max-width:540px; margin:clamp(18px, 2.6vh, 28px) auto 0; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(14px, 1.1vw, 17px); line-height:1.9; letter-spacing:0.3px; color:rgba(236, 227, 210, 0.6); opacity:0; transform:translateY(16px); transition:opacity 1.4s ease, transform 1.5s cubic-bezier(.22,1,.36,1); text-wrap:pretty;">Designed to simplify creator marketing with complete transparency, premium talent and measurable results.</p>
+
+      <div style="position:relative; margin-top:clamp(48px, 7vh, 84px); display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:clamp(24px, 3vw, 44px); align-items:start;">
+        <div data-bb-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 4.6s ease-in-out infinite;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Full Control<br>on Campaigns</span>
+          <p style="margin:0; max-width:230px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); line-height:1.85; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.5); text-wrap:pretty;">Manage every stage of your campaign from one dashboard with complete visibility and control.</p>
+        </div>
+        <div data-bb-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 5.2s ease-in-out infinite; animation-delay:0.8s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Hire the Most<br>Qualified Creators</span>
+          <p style="margin:0; max-width:230px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); line-height:1.85; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.5); text-wrap:pretty;">Access verified creators, compare performance, portfolios and audience quality before making your decision.</p>
+        </div>
+        <div data-bb-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 4.9s ease-in-out infinite; animation-delay:1.6s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Track Campaign<br>Performance</span>
+          <p style="margin:0; max-width:230px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); line-height:1.85; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.5); text-wrap:pretty;">Monitor campaign progress, creator activity, content approvals and key performance metrics in real time.</p>
+        </div>
+        <div data-bb-item="" style="display:flex; flex-direction:column; align-items:center; gap:16px; opacity:0; transform:translateY(16px); transition:opacity 1.2s ease, transform 1.3s cubic-bezier(.22,1,.36,1);">
+          <span style="width:7px; height:7px; border-radius:50%; background:#F3D49A; box-shadow:0 0 10px rgba(243,212,154,0.55); animation:gcDotPulse 5.5s ease-in-out infinite; animation-delay:2.4s;"></span>
+          <span style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 15px); letter-spacing:2.4px; text-transform:uppercase; line-height:1.8; color:rgba(236, 227, 210, 0.82); transition:color 0.5s ease, text-shadow 0.5s ease;" data-hover="color:#F3D49A; text-shadow:0 0 20px rgba(243,212,154,0.35);">Everything<br>in One Place</span>
+          <p style="margin:0; max-width:230px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); line-height:1.85; letter-spacing:0.2px; color:rgba(236, 227, 210, 0.5); text-wrap:pretty;">Messaging, contracts, creator management, deliverables, analytics and payments—all inside one premium platform.</p>
+        </div>
+      </div>
+
+      <!-- brand CTA -->
+      <div data-bb-item="" style="position:relative; margin-top:clamp(80px, 12vh, 150px); display:flex; flex-direction:column; align-items:center; gap:0; opacity:0; transform:translateY(16px); transition:opacity 1.3s ease, transform 1.4s cubic-bezier(.22,1,.36,1);">
+        <div style="font-family:Jost, sans-serif; font-weight:400; font-size:clamp(10px, 1vw, 12px); letter-spacing:7px; color:#b8780c;">READY TO LAUNCH?</div>
+        <h3 style="margin:clamp(16px, 2.4vh, 26px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(28px, 3vw, 48px); line-height:1.1; letter-spacing:0.5px; color:#ece3d2; text-wrap:balance;">Start Your First Campaign</h3>
+        <p style="max-width:520px; margin:clamp(14px, 2.2vh, 24px) auto 0; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 16px); line-height:1.9; letter-spacing:0.3px; color:rgba(236, 227, 210, 0.58); text-wrap:pretty;">Create your company profile, discover verified creators, and manage every campaign from one premium platform.</p>
+        <a href="pages/coming-soon.html" style="margin-top:clamp(30px, 4.5vh, 48px); display:inline-flex; align-items:center; gap:14px; padding:clamp(15px, 2.2vh, 20px) clamp(36px, 4vw, 56px); border-radius:999px; border:1px solid rgba(217,176,106,0.55); background:linear-gradient(165deg, rgba(28,21,13,0.6), rgba(9,7,5,0.85)); box-shadow:0 18px 40px rgba(0,0,0,0.55), 0 0 30px rgba(198,138,61,0.12), inset 0 1px 0 rgba(243,212,154,0.1); text-decoration:none; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(18px, 1.4vw, 23px); letter-spacing:0.6px; color:#F3D49A; transition:transform 0.55s cubic-bezier(.22,1,.36,1), box-shadow 0.55s ease, border-color 0.55s ease;" data-hover="transform:translateY(-3px); border-color:rgba(255,237,140,0.85); box-shadow:0 24px 52px rgba(0,0,0,0.65), 0 0 54px rgba(243,212,154,0.28), inset 0 1px 0 rgba(243,212,154,0.18);">
+          <svg viewBox="0 0 24 24" style="width:22px; height:22px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4.2" y="8" width="15.6" height="11" rx="2"></rect>
+            <path d="M9 8 V6.6 a1.8 1.8 0 0 1 1.8 -1.8 h2.4 A1.8 1.8 0 0 1 15 6.6 V8"></path>
+            <path d="M4.2 12.6 h15.6"></path>
+          </svg>
+          <span>Join as a Brand</span>
+          <span style="font-family:Jost, sans-serif; font-weight:300; font-size:0.85em;">→</span>
+        </a>
+        <div style="margin-top:clamp(16px, 2.4vh, 24px); font-family:Jost, sans-serif; font-weight:300; font-size:clamp(11px, 0.85vw, 13px); letter-spacing:1.6px; color:rgba(236, 227, 210, 0.42);">Free to get started&nbsp;&nbsp;·&nbsp;&nbsp;Launch your first campaign in minutes</div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="contact" data-screen-label="Footer" style="position:relative; background:#050505; overflow:hidden; padding:clamp(90px, 14vh, 170px) clamp(24px, 6vw, 96px) clamp(36px, 5vh, 56px);">
+
+  <!-- thin decorative curved gold lines in the background -->
+  <svg viewBox="0 0 1600 700" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0.5;">
+    <path d="M-40 640 C 300 420, 620 660, 940 480 C 1220 320, 1440 420, 1660 300" fill="none" stroke="url(#gcGold)" stroke-width="1" opacity="0.3"></path>
+    <path d="M-40 700 C 340 500, 660 720, 980 560 C 1260 420, 1460 500, 1660 400" fill="none" stroke="url(#gcGold)" stroke-width="0.6" opacity="0.18"></path>
+    <path d="M-40 140 C 260 300, 560 100, 880 220 C 1180 330, 1420 180, 1660 260" fill="none" stroke="url(#gcGold)" stroke-width="0.7" opacity="0.14"></path>
+  </svg>
+
+  <div style="position:relative; max-width:1180px; margin:0 auto; z-index:2;">
+
+    <!-- 4 columns -->
+    <div data-footer-grid style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:clamp(36px, 4.5vw, 88px); align-items:start;">
+
+      <!-- Brand -->
+      <div style="display:flex; flex-direction:column; gap:clamp(20px, 3vh, 28px);">
+        <a href="index.html" style="display:flex; align-items:center; gap:13px; text-decoration:none;">
+          <svg viewBox="0 0 24 24" style="width:30px; height:30px; flex-shrink:0; filter:drop-shadow(0 0 8px rgba(243,212,154,0.22));" fill="none" stroke="url(#gcWork)" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9.4" stroke-width="0.9" opacity="0.8"></circle>
+            <path d="M12 5.6 a6.4 6.4 0 1 0 6.4 6.4" stroke-width="1.1"></path>
+            <path d="M12 8.8 a3.2 3.2 0 1 1 -3.2 3.2" stroke-width="1"></path>
+          </svg>
+          <span style="font-family:'Cinzel', serif; font-weight:600; font-size:clamp(13px, 1.1vw, 16px); letter-spacing:3.5px; color:#D9B06A;">GOLDEN CIRCLE</span>
+        </a>
+        <p style="margin:0; max-width:250px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(12px, 0.95vw, 14px); line-height:1.9; letter-spacing:0.6px; color:rgba(236, 227, 210, 0.5); text-wrap:pretty;">Where brands meet authentic voices.</p>
+      </div>
+
+      <!-- Menu -->
+      <div style="display:flex; flex-direction:column; gap:clamp(22px, 3.4vh, 32px);">
+        <div style="font-family:'Cormorant Garamond', serif; font-weight:600; font-size:clamp(14px, 1.1vw, 17px); letter-spacing:5px; color:#b8780c;">MENU</div>
+        <div style="display:flex; flex-direction:column; gap:clamp(14px, 2.2vh, 20px);">
+          <a href="#" data-noop style="align-self:flex-start; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, transform 0.45s cubic-bezier(.22,1,.36,1), text-shadow 0.45s ease;" data-hover="color:#F3D49A; transform:translateX(4px); text-shadow:0 0 18px rgba(243,212,154,0.35);">Contact Us</a>
+          <a href="#" data-noop style="align-self:flex-start; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, transform 0.45s cubic-bezier(.22,1,.36,1), text-shadow 0.45s ease;" data-hover="color:#F3D49A; transform:translateX(4px); text-shadow:0 0 18px rgba(243,212,154,0.35);">For Creators</a>
+          <a href="#" data-noop style="align-self:flex-start; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, transform 0.45s cubic-bezier(.22,1,.36,1), text-shadow 0.45s ease;" data-hover="color:#F3D49A; transform:translateX(4px); text-shadow:0 0 18px rgba(243,212,154,0.35);">Contact Support</a>
+        </div>
+      </div>
+
+      <!-- Socials -->
+      <div style="display:flex; flex-direction:column; gap:clamp(22px, 3.4vh, 32px);">
+        <div style="font-family:'Cormorant Garamond', serif; font-weight:600; font-size:clamp(14px, 1.1vw, 17px); letter-spacing:5px; color:#b8780c;">SOCIALS</div>
+        <div style="display:flex; flex-direction:column; gap:clamp(14px, 2.2vh, 20px);">
+          <a href="#" data-noop style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, filter 0.45s ease, text-shadow 0.45s ease;" data-hover="color:#F3D49A; filter:drop-shadow(0 0 8px rgba(243,212,154,0.45)); text-shadow:0 0 18px rgba(243,212,154,0.35);">
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4.4" y="4.4" width="15.2" height="15.2" rx="4.4"></rect><circle cx="12" cy="12" r="3.4"></circle><circle cx="16.4" cy="7.6" r="0.6" fill="#D9B06A" stroke="none"></circle></svg>
+            <span>Instagram</span>
+          </a>
+          <a href="#" data-noop style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, filter 0.45s ease, text-shadow 0.45s ease;" data-hover="color:#F3D49A; filter:drop-shadow(0 0 8px rgba(243,212,154,0.45)); text-shadow:0 0 18px rgba(243,212,154,0.35);">
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.4" stroke-linecap="round"><path d="M5.4 4.8 L18.6 19.2 M18.4 4.8 L5.6 19.2"></path></svg>
+            <span>X (Twitter)</span>
+          </a>
+          <a href="#" data-noop style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, filter 0.45s ease, text-shadow 0.45s ease;" data-hover="color:#F3D49A; filter:drop-shadow(0 0 8px rgba(243,212,154,0.45)); text-shadow:0 0 18px rgba(243,212,154,0.35);">
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4.4" y="4.4" width="15.2" height="15.2" rx="3.4"></rect><path d="M8.6 11 v5"></path><circle cx="8.6" cy="8.4" r="0.5" fill="#D9B06A" stroke="none"></circle><path d="M12.2 16 v-3 a2 2 0 0 1 4 0 v3"></path></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="#" data-noop style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, filter 0.45s ease, text-shadow 0.45s ease;" data-hover="color:#F3D49A; filter:drop-shadow(0 0 8px rgba(243,212,154,0.45)); text-shadow:0 0 18px rgba(243,212,154,0.35);">
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; flex-shrink:0;" fill="none" stroke="url(#gcWork)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M13.6 4.8 v9.6 a3.6 3.6 0 1 1 -3.6 -3.6"></path><path d="M13.6 4.8 c 0.4 2.6, 2.3 4.3, 4.8 4.5"></path></svg>
+            <span>TikTok</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Legal -->
+      <div style="display:flex; flex-direction:column; gap:clamp(22px, 3.4vh, 32px);">
+        <div style="font-family:'Cormorant Garamond', serif; font-weight:600; font-size:clamp(14px, 1.1vw, 17px); letter-spacing:5px; color:#b8780c;">LEGAL</div>
+        <div style="display:flex; flex-direction:column; gap:clamp(14px, 2.2vh, 20px);">
+          <a href="#" data-noop style="align-self:flex-start; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, transform 0.45s cubic-bezier(.22,1,.36,1), text-shadow 0.45s ease;" data-hover="color:#F3D49A; transform:translateX(4px); text-shadow:0 0 18px rgba(243,212,154,0.35);">Privacy Policy</a>
+          <a href="#" data-noop style="align-self:flex-start; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(13px, 1vw, 15px); letter-spacing:1.2px; color:rgba(236, 227, 210, 0.6); text-decoration:none; transition:color 0.45s ease, transform 0.45s cubic-bezier(.22,1,.36,1), text-shadow 0.45s ease;" data-hover="color:#F3D49A; transform:translateX(4px); text-shadow:0 0 18px rgba(243,212,154,0.35);">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom bar -->
+    <div style="margin-top:clamp(70px, 11vh, 130px); display:flex; flex-direction:column; align-items:center; gap:clamp(20px, 3vh, 28px);">
+      <div style="width:100%; height:1px; background:linear-gradient(90deg, transparent 0%, rgba(217,176,106,0.5) 30%, rgba(255,237,140,0.7) 50%, rgba(217,176,106,0.5) 70%, transparent 100%); box-shadow:0 0 14px rgba(243,212,154,0.3);"></div>
+      <div style="text-align:center; font-family:Jost, sans-serif; font-weight:300; font-size:clamp(10px, 0.8vw, 12px); letter-spacing:2.2px; color:rgba(236, 227, 210, 0.34);">© 2026 Golden Circle. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/golden-circle.js"></script>
+</body>
+</html>

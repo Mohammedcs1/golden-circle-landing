@@ -1,0 +1,28 @@
+/* Golden Circle — base styles.
+   Reset + keyframes copied verbatim from the original design (<style> block in
+   "Golden Circle Hero.dc.html"). Do not alter values — they drive the visuals. */
+
+/* overflow-x: clip contains any decorative element that runs past the viewport
+   edge on small screens. clip (unlike hidden) does NOT create a scroll container,
+   so the hero's position:sticky stage keeps pinning correctly. */
+html, body { margin: 0; padding: 0; background: #000000; overflow-x: clip; }
+
+/* The original DC runtime injected a minimal reset; box-sizing keeps clamp()
+   layouts identical to the preview. */
+*, *::before, *::after { box-sizing: border-box; }
+
+@keyframes gcHintLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes gcFloatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes gcFloatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+@keyframes gcBreath { 0%,100% { transform: scale(1); opacity:0.9; } 50% { transform: scale(1.04); opacity:1; } }
+@keyframes gcCompress { 0%,100% { transform: scale(1); } 50% { transform: scale(0.88); } }
+@keyframes gcCore { 0%,100% { transform: scale(1); opacity:0.85; } 50% { transform: scale(1.14); opacity:1; } }
+@keyframes gcShadow { 0%,100% { filter: drop-shadow(0 22px 44px rgba(0,0,0,0.6)); } 50% { filter: drop-shadow(0 30px 60px rgba(0,0,0,0.72)); } }
+@keyframes gcDotPulse { 0%,100% { box-shadow: 0 0 6px rgba(243,212,154,0.3); } 50% { box-shadow: 0 0 16px rgba(243,212,154,0.65); } }
+@keyframes gcLineGlow { 0%,100% { opacity: 0.08; } 50% { opacity: 0.2; } }
+@keyframes gcTwinkle { 0%,100% { opacity: 0.08; } 50% { opacity: 0.55; } }
