@@ -34,7 +34,7 @@
     <a href="pages/coming-soon.html" style="white-space:nowrap; font-family:Jost, sans-serif; font-weight:400; font-size:clamp(12px, 0.95vw, 14px); letter-spacing:1.5px; color:#F3D49A; text-decoration:none; border:1px solid rgba(217,176,106,0.55); border-radius:999px; padding:clamp(8px, 1.3vh, 11px) clamp(20px, 2vw, 28px); transition:border-color 0.45s ease, box-shadow 0.45s ease, background 0.45s ease;" data-hover="border-color:rgba(255,237,140,0.85); background:rgba(213,153,41,0.08); box-shadow:0 0 24px rgba(243,212,154,0.22);">Sign in</a>
   </div>
 </div>
-<div data-ref="wrapRef" style="height:460vh; background:#000000; position:relative;">
+<div data-ref="wrapRef" style="height:300vh; background:#000000; position:relative;">
   <div data-ref="stageRef" data-screen-label="Scene 1 — Logo" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#000000;">
     <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; display:block;">
       <defs>
@@ -174,10 +174,7 @@
       <h2 data-ref="hHeadRef" style="margin:clamp(20px, 3vh, 34px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(40px, 6vw, 88px); line-height:1.04; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(24px); text-wrap:balance;">Five Steps.<br>One Golden Thread.</h2>
     </div>
 
-    <!-- workflow: five floating cards on one curved gold line.
-         On phones the outer wrapper becomes a horizontal swipe container
-         (mobile.css) so the desktop composition survives untouched. -->
-    <div data-journey-scroll>
+    <!-- workflow: five floating cards on one curved gold line -->
     <div data-ref="wfRef" style="position:relative; margin-top:clamp(64px, 10vh, 130px); padding:0 clamp(0px, 1vw, 20px);">
 
       <!-- the connecting curved line (path built + drawn in JS) -->
@@ -198,7 +195,7 @@
       <div data-journey-glow style="position:absolute; inset:-24% -12%; background:radial-gradient(ellipse at 50% 36%, rgba(198,138,61,0.06), transparent 62%); pointer-events:none; z-index:0;"></div>
 
       <!-- cards -->
-      <div style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
+      <div data-journey-row="" style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
 
         <div data-wf-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
           <div data-wf-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
@@ -279,9 +276,7 @@
           </div>
           <div data-wf-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.8s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">5</div>
         </div>
-
       </div>
-    </div>
     </div>
 
     <!-- the journey continues: why creators choose golden circle -->
@@ -369,9 +364,7 @@
       <h2 data-ref="bHeadRef" style="margin:clamp(20px, 3vh, 34px) 0 0; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(40px, 6vw, 88px); line-height:1.04; letter-spacing:0.5px; color:#ece3d2; opacity:0; transform:translateY(24px); text-wrap:balance;">Five Steps.<br>One Successful Campaign.</h2>
     </div>
 
-    <!-- workflow: five floating cards on one curved gold line.
-         Same phone-swipe wrapper as the creator journey (mobile.css). -->
-    <div data-journey-scroll>
+    <!-- workflow: five floating cards on one curved gold line -->
     <div data-ref="bwRef" style="position:relative; margin-top:clamp(64px, 10vh, 130px); padding:0 clamp(0px, 1vw, 20px);">
 
       <svg data-ref="bwSvgRef" viewBox="0 0 1180 460" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0;">
@@ -382,7 +375,7 @@
       <div data-journey-glow style="position:absolute; inset:-24% -12%; background:radial-gradient(ellipse at 50% 36%, rgba(198,138,61,0.06), transparent 62%); pointer-events:none; z-index:0;"></div>
 
       <!-- cards -->
-      <div style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
+      <div data-journey-row="" style="position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:clamp(14px, 1.8vw, 30px);">
 
         <div data-bw-card="" style="flex:1 1 138px; min-width:138px; max-width:225px; display:flex; flex-direction:column; align-items:center; transform:translateY(38px);">
           <div data-bw-vis="" style="width:100%; opacity:0; transform:translateY(22px) scale(0.95); transition:opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);">
@@ -466,9 +459,7 @@
           </div>
           <div data-bw-num="" style="margin-top:clamp(30px, 5vh, 54px); width:32px; height:32px; border-radius:50%; border:1px solid rgba(217,176,106,0.55); background:#050505; box-shadow:0 0 14px rgba(243,212,154,0.28); animation:gcDotPulse 5.8s ease-in-out infinite; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:14px; color:#F3D49A; opacity:0; transform:translateY(10px); transition:opacity 1s ease, transform 1s cubic-bezier(.22,1,.36,1);">5</div>
         </div>
-
       </div>
-    </div>
     </div>
 
     <!-- why brands choose golden circle -->

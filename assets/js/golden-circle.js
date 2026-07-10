@@ -106,7 +106,9 @@
       const wrap = this.wrapRef.current;
       if (!wrap) return;
       if (this.auto || this.reduced) { wrap.style.height = '100vh'; return; }
-      wrap.style.height = '460vh';
+      // 300vh (was 460vh): the pinned intro resolves in ~2 screen-scrolls instead
+      // of ~3.6 — momentum flicks no longer teleport across multiple scenes
+      wrap.style.height = '300vh';
       if (window.gsap && window.ScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
         // mobile browsers fire a resize every time the URL bar shows/hides, which
@@ -705,13 +707,26 @@
     const endY = Math.max(0, startY + target.getBoundingClientRect().top);
     if (reduced) { window.scrollTo(0, endY); return; }
     const dist = Math.abs(endY - startY);
-    const dur = Math.min(1500, Math.max(700, dist * 0.5)); // distance-aware, capped
+    const dur = Math.min(1100, Math.max(500, dist * 0.35)); // distance-aware, capped
     const t0 = performance.now();
     const ease = (u) => 1 - Math.pow(1 - u, 3); // easeOutCubic
+    // the user can take over at any moment — a wheel tick, a touch or a key
+    // cancels the animation instead of fighting them for the scrollbar
+    let cancelled = false;
+    const cancel = () => {
+      cancelled = true;
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('touchstart', cancel);
+      window.removeEventListener('keydown', cancel);
+    };
+    window.addEventListener('wheel', cancel, { passive: true });
+    window.addEventListener('touchstart', cancel, { passive: true });
+    window.addEventListener('keydown', cancel);
     const step = (now) => {
+      if (cancelled) return;
       const u = Math.min(1, (now - t0) / dur);
       window.scrollTo(0, startY + (endY - startY) * ease(u));
-      if (u < 1) requestAnimationFrame(step);
+      if (u < 1) requestAnimationFrame(step); else cancel();
     };
     requestAnimationFrame(step);
   }
@@ -759,15 +774,18 @@
       nav.style.webkitBackdropFilter = 'none';
       nav.style.boxShadow = 'none';
     };
+    let acc = 0; // accumulated same-direction travel — hysteresis against touch jitter
     const update = () => {
       ticking = false;
       const y = window.scrollY || window.pageYOffset || 0;
-      if (y <= 8) { show(); scrimOff(); lastY = y; return; }   // at the top → visible, no scrim (hero)
+      if (y <= 8) { show(); scrimOff(); lastY = y; acc = 0; return; }   // at the top → visible, no scrim (hero)
       scrimOn();
       const dy = y - lastY;
-      if (dy > 3) show();          // scrolling down → visible
-      else if (dy < -3) hide();    // scrolling up   → hidden
       lastY = y;
+      if ((dy > 0 && acc < 0) || (dy < 0 && acc > 0)) acc = 0; // direction flip resets
+      acc += dy;
+      if (acc > 24) show();          // deliberate scroll down → visible
+      else if (acc < -24) hide();    // deliberate scroll up   → hidden
     };
     window.addEventListener('scroll', () => {
       if (!ticking) { ticking = true; requestAnimationFrame(update); }

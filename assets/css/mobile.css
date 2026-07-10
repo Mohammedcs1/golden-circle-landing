@@ -71,33 +71,44 @@
 }
 
 /* =====================================================================
-   Creator / Brand journeys — the full desktop row (wave offsets + golden
-   connector line intact) inside a horizontal swipe container
+   Creator / Brand journeys — on phones the five steps become a vertical
+   golden-thread timeline: the numbered nodes run down the left edge, the
+   JS-drawn line threads through them, and full-width cards sit alongside.
+   No horizontal scrolling; everything is visible in the page flow.
    ===================================================================== */
 @media (max-width: 768px) {
-  [data-journey-scroll] {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;              /* Firefox */
+  [data-journey-row] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 22px !important;
   }
-  [data-journey-scroll]::-webkit-scrollbar { display: none; }  /* WebKit */
-
-  /* freeze the desktop geometry: the row keeps a full-size width so the five
-     cards, their wave offsets and the JS-drawn connector line all render
-     exactly as on desktop; vertical padding gives the raised/lowered cards
-     room inside the scroll clip (a scroll container clips transforms) */
-  [data-ref="wfRef"],
-  [data-ref="bwRef"] {
-    min-width: 880px;
-    padding: 40px 24px 52px !important;
-  }
+  /* row-reverse: desktop order is card-then-dot (dot below); reversed as a row
+     it puts the numbered dot LEFT of the card, forming the timeline column */
   [data-wf-card],
-  [data-bw-card] { scroll-snap-align: center; }
-
-  /* the ambience glow extends past the row edges on desktop; inside a scroll
-     container that would add empty swipe distance — pin it to the row */
-  [data-journey-glow] { inset: -10% 0 !important; }
+  [data-bw-card] {
+    flex-direction: row-reverse !important;
+    align-items: flex-start !important;
+    gap: 18px !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    transform: none !important;   /* no desktop wave in a vertical flow */
+  }
+  /* the dot sits beside the card top (desktop puts it far below the card);
+     the connector line threads vertically through this left column */
+  [data-wf-num],
+  [data-bw-num] { margin: 6px 0 0 !important; flex-shrink: 0 !important; }
+  /* alternate cards step 22px right so the thread WEAVES between the nodes
+     (echoes the desktop wave). This is also load-bearing: a perfectly straight
+     vertical line has a zero-width bounding box, and SVG renders
+     objectBoundingBox gradients as "none" on degenerate boxes — the weave
+     keeps the golden gradient alive. Don't straighten it. */
+  [data-wf-card]:nth-child(even),
+  [data-bw-card]:nth-child(even) { margin-left: 22px !important; }
+  [data-wf-vis],
+  [data-bw-vis] { width: auto !important; flex: 1 1 auto !important; min-width: 0 !important; }
+  /* trim the extra top padding the desktop badge overlap needs */
+  [data-wf-vis] > div > div,
+  [data-bw-vis] > div > div { padding: 22px 18px !important; }
 }
 
 /* =====================================================================
